@@ -1,0 +1,33 @@
+{
+  "name": "dat-secret-storage",
+  "description": "store secret key for dat in home dir",
+  "version": "1.0.0",
+  "author": "Joe Hand <joe@hand.email>",
+  "bugs": {
+    "url": "https://github.com/joehand/dat-secret-storage/issues"
+  },
+  "devDependencies": {
+    "hypercore": "^5.4.4",
+    "hyperdrive": "^7.14.5",
+    "random-access-memory": "^2.3.0",
+    "standard": "*",
+    "tap-spec": "^4.0.2",
+    "tape": "^4.0.0"
+  },
+  "homepage": "https://github.com/joehand/dat-secret-storage",
+  "keywords": [
+    "dat"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/joehand/dat-secret-storage.git"
+  },
+  "scripts": {
+    "test": "standard && tape test/*.js | tap-spec"
+  },
+  "dependencies": {
+    "random-access-file": "^1.5.0"
+  }
+}
