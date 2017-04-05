@@ -8,7 +8,7 @@
   },
   "devDependencies": {
     "hypercore": "^5.4.4",
-    "hyperdrive": "^7.14.5",
+    "hyperdrive": "^8.0.0",
     "random-access-memory": "^2.3.0",
     "standard": "*",
     "tap-spec": "^4.0.2",
