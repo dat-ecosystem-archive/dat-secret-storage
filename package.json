@@ -28,6 +28,7 @@
     "test": "standard && tape test/*.js | tap-spec"
   },
   "dependencies": {
+    "hyperdrive": "^8.0.1",
     "mkdirp": "^0.5.1",
     "os-homedir": "^1.0.2",
     "random-access-file": "^1.5.0",
