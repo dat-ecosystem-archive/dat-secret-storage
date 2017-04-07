@@ -1,6 +1,5 @@
 var path = require('path')
 var test = require('tape')
-var hypercore = require('hypercore')
 var hyperdrive = require('hyperdrive')
 var ram = require('random-access-memory')
 var rimraf = require('rimraf')
@@ -53,14 +52,6 @@ test('Create new archive with ram', function (t) {
   archive.ready(function () {
     t.ok(archive.metadata.writable, 'archive is writable')
     t.ok(archive.content.writable, 'archive content is writable')
-    t.end()
-  })
-})
-
-test('Create new feed with ram', function (t) {
-  var feed = hypercore(storage(ram, ram))
-  feed.ready(function () {
-    t.ok(feed.writable, 'feed is writable')
     t.end()
   })
 })
