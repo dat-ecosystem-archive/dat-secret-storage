@@ -35,7 +35,7 @@ Pass to `hyperdrive` as first argument, the storage function.
 ### `storage(publicStorage, [secretStorage])`
 
 * `publicStorage` can be directory or function abstract-random-access module.
-* `secretStorage` defaults to `~/.dat/secret_keys/<discovery-key>. Can pass in a custom function that takes `pubKey` as argument and returns `write` and `read` functions.
+* `secretStorage` defaults to `~/.dat/secret_keys/<discovery-key>`. Can pass in a custom function that takes `pubKey` as argument and returns `write` and `read` functions.
 
 ### Example Uses
 
