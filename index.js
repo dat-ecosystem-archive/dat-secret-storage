@@ -6,9 +6,8 @@ var mkdirp = require('mkdirp')
 var thunky = require('thunky')
 var toDiscovery = require('hypercore/lib/hash').discoveryKey
 
-module.exports = function (publicStorage, secretStorage, opts) {
+module.exports = function (publicStorage, secretStorage) {
   assert.ok(publicStorage, 'pass dir or storage for public files')
-  if (!opts) opts = {}
 
   var datStore = {
     metadata: function (name, archive) {

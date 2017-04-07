@@ -1,10 +1,15 @@
 # dat-secret-storage
 
-store secret key for dat in home dir
+Store secret keys for hyperdrive archives in the user's home directory.
 
 [![npm][npm-image]][npm-url]
 [![travis][travis-image]][travis-url]
 [![standard][standard-image]][standard-url]
+
+## Features
+
+* Store secret keys away from data: prevent users from accidentally sharing the secret key for an archive.
+* Allow interoperability between dat applications: any dat application can access a writable archive by using the same storage.
 
 ## Install
 
@@ -17,16 +22,31 @@ npm install dat-secret-storage
 ```js
 var storage = require('dat-secret-storage')
 
-var pubDir = path.join(process.cwd(), '.dat')
+var publicDir = path.join(process.cwd(), '.dat')
 
-// DEFAULT: store secret key in ~/.dat/secret_keys
-var archive = hyperdrive(storage(pubDir)) 
+// store secret key in ~/.dat/secret_keys
+var archive = hyperdrive(storage(publicDir)) 
+```
 
+## API
+
+Pass to `hyperdrive` as first argument, the storage function.
+
+### `storage(publicStorage, [secretStorage])`
+
+* `publicStorage` can be directory or function abstract-random-access module.
+* `secretStorage` defaults to `~/.dat/secret_keys/<discovery-key>. Can pass in a custom function that takes `pubKey` as argument and returns `write` and `read` functions.
+
+### Example Uses
+
+A few examples of how you may use the storage.
+
+```js
 // store secret key in another dir
-var archive = hyperdrive(storage(pubDir, 'my_secrets'))
+var archive = hyperdrive(storage(publicDir, 'my_secrets'))
 
-// use ram for private storage (just use ram instead...)
-var archive = hyperdrive(storage(pubDir, ram))
+// use ram for private storage
+var archive = hyperdrive(storage(publicDir, ram))
 
 // use custom secret store
 var customStore = function (key) {
@@ -41,17 +61,8 @@ var customStore = function (key) {
     }
   }
 }
-var archive = hyperdrive(storage(pubDir, customStore))
+var archive = hyperdrive(storage(publicDir, customStore))
 ```
-
-## API
-
-Pass to `hyperdrive` as first argument, the storage function.
-
-### `storage(publicStorage, [secretStorage], [opts])`
-
-* `publicStorage` can be string to store in a directory with `raf` or `ram`.
-* `secretStorage` defaults to `~/.dat/secret_keys/<pub-key>. Can pass in a custom function that takes `pubKey` as argument and returns `write` and `read` functions.
 
 ## License
 
