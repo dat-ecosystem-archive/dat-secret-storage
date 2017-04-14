@@ -11,18 +11,24 @@ module.exports = function (publicStorage, secretStorage) {
 
   var datStore = {
     metadata: function (name, archive) {
-      if (name !== 'secret_key') return getPublicStore('metadata/' + name, archive)
+      if (name !== 'secret_key') return getPublicStore(name, archive)
       return getSecretStore(name, archive)
     },
     content: function (name, archive) {
-      return getPublicStore('content/' + name, archive)
+      return getPublicStore(name, archive, true)
     }
   }
 
   return datStore
 
-  function getPublicStore (name, archive) {
+  function getPublicStore (name, archive, isContent) {
     if (typeof publicStorage === 'string') return raf(path.join(publicStorage, name))
+    if (typeof publicStorage === 'object') {
+      if (isContent) return publicStorage.content(name, archive)
+      return publicStorage.metadata(name, archive)
+    }
+    // For regular raf functions add /cotnetn, metadata paths
+    name = isContent ? path.join('content', name) : path.join('metadata', name)
     return publicStorage(name, archive)
   }
 
