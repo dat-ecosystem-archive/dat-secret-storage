@@ -7,8 +7,7 @@
     "url": "https://github.com/joehand/dat-secret-storage/issues"
   },
   "devDependencies": {
-    "hypercore": "^5.4.4",
-    "hyperdrive": "^8.0.0",
+    "hyperdrive": "^9.0.0",
     "random-access-memory": "^2.3.0",
     "standard": "*",
     "tap-spec": "^4.0.2",
@@ -28,7 +27,7 @@
     "test": "standard && tape test/*.js | tap-spec"
   },
   "dependencies": {
-    "hyperdrive": "^8.0.1",
+    "hypercore": "^6.1.0",
     "mkdirp": "^0.5.1",
     "os-homedir": "^1.0.2",
     "random-access-file": "^1.5.0",
