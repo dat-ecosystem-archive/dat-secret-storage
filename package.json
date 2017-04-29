@@ -1,7 +1,7 @@
 {
   "name": "dat-secret-storage",
   "description": "store secret key for dat in home dir",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "author": "Joe Hand <joe@hand.email>",
   "bugs": {
     "url": "https://github.com/joehand/dat-secret-storage/issues"
