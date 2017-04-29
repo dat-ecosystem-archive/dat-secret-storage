@@ -6,11 +6,6 @@ Store secret keys for hyperdrive archives in the user's home directory.
 [![travis][travis-image]][travis-url]
 [![standard][standard-image]][standard-url]
 
-## Features
-
-* Store secret keys away from data: prevent users from accidentally sharing the secret key for an archive.
-* Allow interoperability between dat applications: any dat application can access a writable archive by using the same storage.
-
 ## Install
 
 ```
@@ -19,50 +14,30 @@ npm install dat-secret-storage
 
 ## Usage
 
-```js
-var storage = require('dat-secret-storage')
+Return for the `secret_key` storage in hyperdrive/hypercore.
 
-var publicDir = path.join(process.cwd(), '.dat')
+```js
+var secretStore = require('dat-secret-storage')
+
+var storage = {
+  metadata: function (name, opts) {
+    if (name === 'secret_key') return secretStore()(name, opts)
+    return // other storage
+  },
+  content: function (name, opts) {
+    return // other storage
+  }
+}
 
 // store secret key in ~/.dat/secret_keys
-var archive = hyperdrive(storage(publicDir)) 
+var archive = hyperdrive(storage)
 ```
 
 ## API
 
-Pass to `hyperdrive` as first argument, the storage function.
+### `secretStorage([dir])`
 
-### `storage(publicStorage, [secretStorage])`
-
-* `publicStorage` can be directory or function abstract-random-access module.
-* `secretStorage` defaults to `~/.dat/secret_keys/<discovery-key>`. Can pass in a custom function that takes `pubKey` as argument and returns `write` and `read` functions.
-
-### Example Uses
-
-A few examples of how you may use the storage.
-
-```js
-// store secret key in another dir
-var archive = hyperdrive(storage(publicDir, 'my_secrets'))
-
-// use ram for private storage
-var archive = hyperdrive(storage(publicDir, ram))
-
-// use custom secret store
-var customStore = function (key) {
-  return {
-    write: function (offset, buf, cb) {
-      // write key
-      cb()
-    },
-    read: function (offset, length, cb) {
-      // read key
-      cb()
-    }
-  }
-}
-var archive = hyperdrive(storage(publicDir, customStore))
-```
+* `dir`: directory to store keys under `dir/.dat/secret_keys`. Defaults to users home directory.
 
 ## License
 
