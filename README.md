@@ -14,14 +14,14 @@ npm install dat-secret-storage
 
 ## Usage
 
-Return for the `secret_key` storage in hyperdrive/hypercore.
+Return for the `secret_key` storage in hyperdrive/hypercore. To avoid local ownership conflicts, pass the local directory as the first argument. `dat-secret-storage` will check for a non-empty ownership file in the source directory storage.
 
 ```js
 var secretStore = require('dat-secret-storage')
 
 var storage = {
   metadata: function (name, opts) {
-    if (name === 'secret_key') return secretStore()(name, opts)
+    if (name === 'secret_key') return secretStore()(path.join(dir, '.dat/metadata.ogd'), opts)
     return // other storage
   },
   content: function (name, opts) {
@@ -35,9 +35,10 @@ var archive = hyperdrive(storage)
 
 ## API
 
-### `secretStorage([dir])`
+### `secretStorage([dir])(ownershipFile, opts)`
 
 * `dir`: directory to store keys under `dir/.dat/secret_keys`. Defaults to users home directory.
+* `ownershipFile`: non-empty file that denotes ownership. This helps avoid local ownership conflicts of the same dat.
 
 ## License
 
