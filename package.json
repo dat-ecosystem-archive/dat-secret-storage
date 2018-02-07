@@ -28,6 +28,6 @@
   },
   "dependencies": {
     "os-homedir": "^1.0.2",
-    "random-access-file": "^1.5.0"
+    "random-access-file": "^2.0.1"
   }
 }
