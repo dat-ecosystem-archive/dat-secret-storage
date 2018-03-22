@@ -1,6 +1,7 @@
 var path = require('path')
 var homedir = require('os-homedir')
 var raf = require('random-access-file')
+var bufferAlloc = require('buffer-alloc')
 
 module.exports = function (dir) {
   if (!dir) dir = path.join(homedir(), '.dat', 'secret_keys')
@@ -44,7 +45,7 @@ Storage.prototype.write = function (offset, data, cb) {
   if (!cb) cb = noop
   var self = this
 
-  this.ownerFile.write(0, new Buffer([0]), function (err) {
+  this.ownerFile.write(0, bufferAlloc(1), function (err) {
     if (err) return cb(err)
     self.secretFile.write(offset, data, cb)
   })
